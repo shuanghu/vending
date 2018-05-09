@@ -36,4 +36,14 @@ public class OrderInfoMapperProvider {
       }
     }.toString();
   }
+
+  public String updateTimeout(){
+    return new SQL() {
+      {
+        UPDATE(TABLE_NAME);
+        SET("status = "+OrderStatus.TIMEOUT.value());
+        WHERE("create_time < #{time}");
+      }
+    }.toString();
+  }
 }
