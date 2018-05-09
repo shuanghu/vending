@@ -1,4 +1,4 @@
-package com.shuanghu.vending.common.util;
+package com.shuanghu.vending.common.utils;
 
 import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;

@@ -31,6 +31,7 @@
     <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.1.7</logback.version>
     <commons-lang3.version>3.7</commons-lang3.version>
+    <mysql.version>5.1.46</mysql.version>
   </properties>
 
   <dependencyManagement>
@@ -148,6 +149,12 @@
       </dependency>
       <!--apache common end-->
 
+      <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+      </dependency>
       <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>druid</artifactId>

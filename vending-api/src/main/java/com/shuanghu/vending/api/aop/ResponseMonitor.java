@@ -1,8 +1,8 @@
 package com.shuanghu.vending.api.aop;
 
 import com.shuanghu.vending.common.param.DtoParamCheck;
-import com.shuanghu.vending.common.util.HttpUtil;
-import com.shuanghu.vending.common.util.JsonUtil;
+import com.shuanghu.vending.common.utils.HttpUtil;
+import com.shuanghu.vending.common.utils.JsonUtil;
 import javax.servlet.http.HttpServletRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
