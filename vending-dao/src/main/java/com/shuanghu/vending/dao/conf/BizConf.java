@@ -7,6 +7,6 @@ public class BizConf {
     /**
      * 如果用户在选择商品后，90秒内没有付款，则认为该订单失效。
      */
-    return new Date(System.currentTimeMillis() + 1000*90);
+    return new Date(System.currentTimeMillis() - 1000*90);
   }
 }

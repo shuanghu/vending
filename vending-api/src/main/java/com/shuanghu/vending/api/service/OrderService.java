@@ -2,9 +2,15 @@ package com.shuanghu.vending.api.service;
 
 import com.shuanghu.vending.api.dto.output.OrderDetail;
 import com.shuanghu.vending.api.dto.input.ProductParam;
+import com.shuanghu.vending.api.service.utils.DaoUtils;
+import com.shuanghu.vending.common.exception.NotFoundException;
+import com.shuanghu.vending.common.utils.IdUtils;
 import com.shuanghu.vending.dao.conf.BizConf;
 import com.shuanghu.vending.dao.mapper.OrderInfoMapper;
+import com.shuanghu.vending.dao.mapper.ProductMapper;
 import com.shuanghu.vending.dao.model.OrderInfo;
+import com.shuanghu.vending.dao.model.Product;
+import java.util.Date;
 import java.util.List;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +21,18 @@ public class OrderService {
 
   @Autowired
   private OrderInfoMapper orderInfoMapper;
+  @Autowired
+  private ProductMapper productMapper;
 
   public OrderDetail createOrder(String deviceId, ProductParam param){
-    OrderInfo orderInfo = param.toOrderInfo(deviceId);
+    Product product = DaoUtils.findById(param.getId(),productMapper::findById);
+
+    OrderInfo orderInfo = new OrderInfo();
+    orderInfo.setOrderNo(IdUtils.orderId());
+    orderInfo.setCreateTime(new Date());
+    orderInfo.setDeviceId(deviceId);
+    orderInfo.setTotalAmount(product.getPrice());
+
     orderInfoMapper.insert(orderInfo);
     return new OrderDetail(orderInfo);
   }
@@ -26,7 +41,7 @@ public class OrderService {
     List<OrderInfo> orderInfoList = orderInfoMapper.findEffectiveByDevice(deviceId, BizConf.orderTimeout());
     if (CollectionUtils.isEmpty(orderInfoList)){
       // 404
-      return null;
+      throw new NotFoundException("设备无订单信息");
     }
 
     return new OrderDetail(orderInfoList.get(0));
